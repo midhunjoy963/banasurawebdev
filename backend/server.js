@@ -7,7 +7,7 @@ import connectDB from './config/db.js';
 import mongoose from 'mongoose';
 import cabRoutes from './routes/cabroutes.js';
 import userRoutes from './routes/userroutes.js';
-import uploadRoutes from '.rotes/uploadroutes.js';
+import uploadRoutes from './routes/uploadroutes.js';
 //import { notFound,errorHandler } from './custommiddlewares/errorMiddleware.js';
 
 const port =process.env.PORT;

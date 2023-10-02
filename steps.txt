@@ -1,0 +1,8 @@
+-create folder 
+-create react app : npx create-react-app frontend
+-install : npm i react-bootstrap bootstrap react-icons (in frontend folder)
+-import bootstrap css into index.js import 'bootstrap/dist/css/bootstrap.min.css'
+-create package.json in root npm init
+-install dev pependecy in root npm i nodemon cuncurrently
+-install dotenv as dev dependency
+-install frontend dep axios npm i axios

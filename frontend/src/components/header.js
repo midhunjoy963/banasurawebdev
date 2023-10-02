@@ -29,7 +29,9 @@ const Header = () => {
     <header>
         <Navbar bg="grey" data-bs-theme="dark" expand="lg" collapseOnSelect>
             <Container>
-                <Navbar.Brand className='navbar-text'>Team Banasura</Navbar.Brand>
+                <LinkContainer to='/'>
+                    <Navbar.Brand className='navbar-text'>Team Banasura</Navbar.Brand>
+                </LinkContainer>
                 <Navbar.Toggle area-controls="basic-navbar-nav" className='bg-success'></Navbar.Toggle>
                 <Navbar.Collapse id = "basic-navbar-nav">
                     <Nav className="ms-auto ">

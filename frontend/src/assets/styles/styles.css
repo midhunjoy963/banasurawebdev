@@ -61,8 +61,11 @@ img{
 }
 
 .navbar-text{
-  color: #001d00 !important;
+  color: white;
+  font-size: x-large;
+  
 }
-#navbar-text{
-  color: #001d00 !important;
+
+.nav-item-bg{
+  background-color: black;
 }

@@ -25,25 +25,28 @@ const Header = () => {
             console.log('logout failed'+err);
         }
     };
+
+    const isNavbarExpanded = window.innerWidth <= 992;
+
   return (
     <header>
-        <Navbar bg="grey" data-bs-theme="dark" expand="lg" collapseOnSelect>
-            <Container>
+        <Navbar fixed="top" style={{height:'11%', backgroundColor: 'rgba(0,0,0,0.6)'}}  expand="lg">
+            <Container height=''>
                 <LinkContainer to='/'>
                     <Navbar.Brand className='navbar-text'>Team Banasura</Navbar.Brand>
                 </LinkContainer>
-                <Navbar.Toggle area-controls="basic-navbar-nav" className='bg-success'></Navbar.Toggle>
-                <Navbar.Collapse id = "basic-navbar-nav">
-                    <Nav className="ms-auto ">
-                        <LinkContainer to='/'>
-                            <Nav.Link className='navbar-text'>Home</Nav.Link>
+                <Navbar.Toggle area-controls="basic-navbar-nav" className='bg-success' style={{backgroundColor: 'rgba(0,0,0,0.9)'}}></Navbar.Toggle>
+                <Navbar.Collapse id="basic-navbar-nav" className="ps-3" >
+                    <Nav className={isNavbarExpanded ? 'nav-item-bg ms-auto' : 'ms-auto'}>
+                        <LinkContainer className='pe-5' to='/'>
+                            <Nav.Link className='navbar-text'>HOME</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to='/cabs'>
-                            <Nav.Link className='navbar-text'>Cabs</Nav.Link>
+                        <LinkContainer className='pe-5' to='/cabs'>
+                            <Nav.Link className='navbar-text'>CABS</Nav.Link>
                         </LinkContainer>
                         {
                             userInfo? ( 
-                                <NavDropdown className='navbar-text' title={userInfo.name} id='username'>
+                                <NavDropdown className='navbar-text pe-5' title={userInfo.name} id='username'>
                                     <NavDropdown.Item onClick={logoutHandler} >
                                         Logout
                                     </NavDropdown.Item>
@@ -51,7 +54,7 @@ const Header = () => {
                                 )
                             :   
                                 (
-                                <LinkContainer className='navbar-text' to='/user/login'>
+                                <LinkContainer className='navbar-text pe-5' to='/user/login'>
                                 <Nav.Link ><FaUser/> Log In</Nav.Link>
                                 </LinkContainer>
                                 )

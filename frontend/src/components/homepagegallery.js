@@ -25,7 +25,7 @@ const homepagegallery = () => {
         </Container>
         <Carousel.Caption className='pb-5 mb-5' >
           <h1 className='display-1'>Chembra Peak</h1>
-          <p classname='caption-text'>Surrounded by hills, tea plantations and lush green valley, Chembra Peak is the highest mountain peak in Wayanad. </p>
+          <p className='caption-text'>Surrounded by hills, tea plantations and lush green valley, Chembra Peak is the highest mountain peak in Wayanad. </p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -34,7 +34,7 @@ const homepagegallery = () => {
         </Container>
         <Carousel.Caption className='pb-5 mb-5' >
           <h1 className='display-1'>9000 Kandi</h1>
-          <p classname='caption-text'>In the deep reaches of Wayanad in Kerala, there is a lush green paradise where adventure meets serenity</p>
+          <p className='caption-text'>In the deep reaches of Wayanad in Kerala, there is a lush green paradise where adventure meets serenity</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -43,7 +43,7 @@ const homepagegallery = () => {
         </Container>
         <Carousel.Caption className='pb-5 mb-5' >
           <h1 className='display-1'>Edakkal caves</h1>
-          <p classname='caption-text'>The Edakkal caves are two natural caves at a remote location at Edakkal, 25 km (15.5 mi) from Kalpetta in the Wayanad district of Kerala in India.</p>
+          <p className='caption-text'>The Edakkal caves are two natural caves at a remote location at Edakkal, 25 km (15.5 mi) from Kalpetta in the Wayanad district of Kerala in India.</p>
         </Carousel.Caption>
       </Carousel.Item> 
       

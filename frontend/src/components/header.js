@@ -15,7 +15,7 @@ const Header = () => {
     const [logoutApiCall] = useLogoutMutation();
 
     const logoutHandler = async()=>{
-        console.log('logginf out');
+        console.log('logging out');
         try{
             await logoutApiCall().unwrap;
             dispatch(logout()); 
@@ -41,14 +41,14 @@ const Header = () => {
                         <LinkContainer to='/cabs'>
                             <Nav.Link className='navbar-text'>Cabs</Nav.Link>
                         </LinkContainer>
+                        
+                        
+                        
                         {
-                            userInfo? ( 
-                                <NavDropdown className='navbar-text' title={userInfo.name} id='username'>
-                                    <NavDropdown.Item onClick={logoutHandler} >
-                                        Logout
-                                    </NavDropdown.Item>
-                                </NavDropdown> 
-                                )
+                            userInfo? (
+                                <Nav.Link className='navbar-text' onClick={logoutHandler}>{userInfo.name}</Nav.Link>
+                            
+                                )   
                             :   
                                 (
                                 <LinkContainer className='navbar-text' to='/user/login'>

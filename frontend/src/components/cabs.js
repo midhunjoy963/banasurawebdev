@@ -16,7 +16,7 @@ const Cabs = ()=>{
     return(
         <>
             { isLoading ? (<Loading />) :error ? (<Message variant='danger' children={error?.data?.message||error.error}></Message>) :(<>
-                <Row>
+                <Row style={{'margin-top':"70px"}}>
                 {
                     cabs.map((cab)=>(
                         <Col key={cab._id} sm={12} md={6} lg={4} xl={3}>

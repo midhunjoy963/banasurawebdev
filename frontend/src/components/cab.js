@@ -8,11 +8,11 @@ const Cab = ({cab})=>{
     const {userInfo} = useSelector((state)=>state.auth);
     return (
       <Card>
-        <Link to={`/cabs/${cab._id}`}>
-          <Card.Img variant="top" src={cab.image} style={{height:'18rem' }}/>
+        <Link to={`/api/cabs/${cab._id}`}>
+          <Card.Img variant="top" src={`/${cab.image}`} style={{height:'18rem' }}/>
         </Link>
         <Card.Body>
-          <Link to={`/cabs/${cab._id}`}>
+          <Link to={`/api/cabs/${cab._id}`}>
             <Card.Title>{cab.name}</Card.Title>
           </Link>
           <Card.Text variant="bottom">
@@ -28,3 +28,4 @@ const Cab = ({cab})=>{
 }
 
 export default Cab;
+

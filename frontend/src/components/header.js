@@ -5,6 +5,7 @@ import {FaUser} from 'react-icons/fa';
 import {useSelector,useDispatch} from 'react-redux';
 import { useLogoutMutation } from '../slices/userApiSlice';
 import {logout} from '../slices/authSlice';
+import Image from 'react-bootstrap/Image';
 
 const Header = () => {
     const {userInfo} = useSelector((state)=>state.auth);
@@ -30,26 +31,23 @@ const Header = () => {
 
   return (
     <header>
-        <Navbar fixed="top" style={{height:'11%', backgroundColor: 'rgba(0,0,0,0.6)'}}  expand="lg">
+        <Navbar  style={{ backgroundColor: '#68b072'}}  expand="lg">
             <Container height=''>
                 <LinkContainer to='/'>
-                    <Navbar.Brand className='navbar-text'>Team Banasura</Navbar.Brand>
+                        <Navbar.Brand href="#home">
+                            <Image src="../logo.png" style={{height:'70px'}} />
+                        </Navbar.Brand>
                 </LinkContainer>
                 <Navbar.Toggle area-controls="basic-navbar-nav" className='bg-success' style={{backgroundColor: 'rgba(0,0,0,0.9)'}}></Navbar.Toggle>
                 <Navbar.Collapse id="basic-navbar-nav" className="ps-3" >
                     <Nav className={isNavbarExpanded ? 'nav-item-bg ms-auto' : 'ms-auto'}>
-                        <LinkContainer className='pe-5' to='/'>
-                            <Nav.Link className='navbar-text'>HOME</Nav.Link>
-                        </LinkContainer>
-                        <LinkContainer className='pe-5' to='/cabs'>
+                        <LinkContainer className='pe-5' to='/api/cabs'>
                             <Nav.Link className='navbar-text'>CABS</Nav.Link>
                         </LinkContainer>
                         
-                        
-                        
                         {
                             userInfo? ( 
-                                <NavDropdown className='navbar-text pe-5' title={userInfo.name} id='username'>
+                                <NavDropdown className='navbar-text pe-5' style={{ Color: '#68b072'}} title={userInfo.name} id='username'>
                                     <NavDropdown.Item onClick={logoutHandler} >
                                         Logout
                                     </NavDropdown.Item>
@@ -57,8 +55,8 @@ const Header = () => {
                                 )
                             :   
                                 (
-                                <LinkContainer className='navbar-text pe-5' to='/user/login'>
-                                <Nav.Link ><FaUser/> Log In</Nav.Link>
+                                <LinkContainer className='navbar-text pe-5' to='/api/user/login'>
+                                    <Nav.Link ><FaUser/> Log In</Nav.Link>
                                 </LinkContainer>
                                 )
                         }

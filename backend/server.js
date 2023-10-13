@@ -24,14 +24,19 @@ app.get('/',(req,res)=>{
         
 });
 
-app.use('/cabs',cabRoutes);
-app.use('/user',userRoutes);
+
+
+app.use('/api/cabs',cabRoutes);
+app.use('/api/user',userRoutes);
 app.use('/api/upload',uploadRoutes);
 
 
 
 const __dirname = path.resolve();
 app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
+
+
+
 
 
 // app.use(notFound);

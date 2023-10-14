@@ -20,9 +20,7 @@ app.use(express.urlencoded({extended:true}));
 //cookie-parser middleware
 app.use(cookieParser());
 
-app.get('/',(req,res)=>{
-        
-});
+
 
 
 
@@ -34,7 +32,20 @@ app.use('/api/upload',uploadRoutes);
 
 const __dirname = path.resolve();
 app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
+if(process.env.NODE_ENV ==='production'){
+    //set static folder
+    app.use(express.static(path.join(__dirname,'/frontend/build')));
 
+    //any route that is not api will be redirected to index.html
+    app.get('*', (req,res)=>{
+        res.sendFile(path.resolve(__dirname,'frontend','build','index.html'))
+    });
+}
+else{
+    app.get('/',(req,res)=>{
+        res.send('Api is running...');
+    });
+}
 
 
 

@@ -1,0 +1,23 @@
+/* FloatingCabIcon.css */
+
+.floating-cab-icon {
+    position: fixed;
+    bottom: 20%; /* Adjust this value to control the vertical position */
+    right: 20px;  /* Adjust this value to control the horizontal position */
+    background-color: #0f7c2174;
+    color: #fff;
+    width:15%;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it's on top of other content */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+  }
+  
+  .floating-cab-icon:hover {
+    background-color: #0056b3; /* Change color on hover */
+    transform: scale(1.1); /* Optional: Add a scale effect on hover */
+  }
+  

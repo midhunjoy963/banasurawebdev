@@ -28,7 +28,8 @@ const cabs = [
         noOfReviews:10,
         discription:'This not just old its the new',
         chargePerKm:200
-    }
+    },
+    
 ];
 
 const getCabs = asyncHandler(async (req,res)=>{

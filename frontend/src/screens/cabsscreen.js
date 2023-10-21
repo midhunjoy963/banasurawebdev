@@ -1,9 +1,20 @@
 import React from 'react';
 import Cabs from '../components/cabs';
-
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh', 
+  },
+};
 const cabsscreen = () => {
   return (
-    <Cabs></Cabs>
+    <div style={styles.container}>
+       <Cabs></Cabs>
+    </div>
+   
   )
 }
 

@@ -17,6 +17,15 @@ const Cabs = ()=>{
 
     const {userInfo} = useSelector((state)=>state.auth);
     const {data:cabs,isLoading,error } =  useGetCabsQuery({});
+    const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh', 
+  },
+};
     return(
         <>
             { isLoading ? (<Loading />) :error ? (<Message variant='danger' children={error?.data?.message||error.error}></Message>) :(<>
@@ -28,9 +37,11 @@ const Cabs = ()=>{
                 {
                     
                     cabs.map((cab,i)=>(
+                        <div style={styles.container}>
                         <Col key={cab._id} sm={12} md={6} lg={4} xl={3}>
                                 <Cab cab={cab}></Cab>
                         </Col>
+                        </div>
                     ))
                     
                 }

@@ -7,11 +7,29 @@ import Loading from '../components/loading';
 import {useLoginMutation} from '../slices/userApiSlice.js';
 import {toast} from 'react-toastify';
 import { setCredentials } from '../slices/authSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
+
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh', 
+  },
+};
 const LoginScreen = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -42,11 +60,13 @@ const LoginScreen = () => {
 
     }
   return (
+     <div style={styles.container}>
     <FormContainer>
-        <h1>Sign In</h1>
+        <h1>Login</h1>
+        <h5>Welcome back, you've been missed!</h5>
         <Form onSubmit={submitHandler}>
             <Form.Group controlId='email' className='my-3'>
-                <Form.Label>Email</Form.Label>
+                {/* <Form.Label>Email</Form.Label> */}
                 <Form.Control
                     type='email'
                     placeholder='Enter Email'
@@ -56,27 +76,37 @@ const LoginScreen = () => {
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId='password' className='my-3'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                    type='password'
-                    placeholder='Enter Password'
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
-                    >
-                </Form.Control>
+                {/* <Form.Label>Password</Form.Label> */}
+              <div className='input-group'>
+              <Form.Control
+                type={showPassword ? 'text' : 'password'}
+                placeholder='Enter Password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div className='input-group-append'>
+                <Button
+                  variant='outline-secondary'
+                  onClick={togglePasswordVisibility}
+                >
+                  <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                </Button>
+              </div>
+            </div>
             </Form.Group>
-            <Button type='submit' variant='primary' className='mt-2' disabled={isLoading  }>
-                Sign In
+            <Button type='submit' style ={{backgroundColor:"#68b072",width: "100%" ,outline: 'none'}} variant='primary' className='mt-2' disabled={isLoading  }>
+                Login
             </Button>
             {isLoading && <Loading />}
         </Form>
         <Row className='py-3'>
             <Col>
-                New Here? <Link to='/'>Register</Link>
+                Not a member? <Link to='/' style ={{color:"#68b072"}} >Register now!</Link>
             </Col>
         </Row>
         
     </FormContainer>
+    </div>
   )
 }
 

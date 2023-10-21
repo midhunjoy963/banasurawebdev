@@ -53,6 +53,32 @@ const cabs = [
         noOfReviews:10,
         discription:'This not just old its the new',
         chargePerKm:200
+    }, {
+    
+        name:'Ferrary',
+        image:'images/cabs/ferrari.jpg',    
+        rating:3,
+        noOfReviews:6,
+        discription:'This is my all new ferrary',
+        chargePerKm:100
+    },
+    {
+    
+        name:'Ambaseder', 
+        image:'images/cabs/ambassader.jpg',   
+        rating:4.6,
+        noOfReviews:6,
+        discription:'This is my all old gold',
+        chargePerKm:350
+    },
+    {
+    
+        name:'Maruthi 800', 
+        image:'images/cabs/800.jpg', 
+        rating:3.5,
+        noOfReviews:10,
+        discription:'This not just old its the new',
+        chargePerKm:200
     }
 ];
 

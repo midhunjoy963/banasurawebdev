@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store.js';
-
 //css imports here
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,6 +17,10 @@ import CabsScreen from './screens/cabsscreen.js';
 import CabDetailScreen from './screens/cabdetailscreen.js';
 import reportWebVitals from './reportWebVitals';
 import LoginScreen from './screens/loginScreen.js';
+import AdiminRoute from './components/adminRoute.jsx';
+import AllCabs from './screens/adminScreens/allCabsScreen_admin.jsx';
+import CabEditScreen from './screens/adminScreens/cabEditScreen.jsx';
+
 
 
 
@@ -28,8 +31,16 @@ const route = createBrowserRouter(
       <Route index={true} path='/' element={<HomeScreen />} />
       <Route path='/api/cabs' element ={<CabsScreen />} />
       <Route path='/api/cabs/:id' element={<CabDetailScreen />} />
-      <Route path='/api/user/login' element={<LoginScreen />} />
+      <Route path='/login' element={<LoginScreen />} />
+      <Route path='/login' element={<LoginScreen />} />
+
+      <Route path='/admin' element ={<AdiminRoute />}>
+        <Route  path='/admin/cabList' element ={<AllCabs />} />
+        <Route path='/admin/cab/:id/edit' element={<CabEditScreen />} />
+      </Route>
     </Route>
+
+   
   )
 )
 

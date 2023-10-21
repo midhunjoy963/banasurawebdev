@@ -1,4 +1,4 @@
-import asyncHandler from '../custommiddlewares/asynchandler.js';
+import asyncHandler from '../custommiddlewares/asyncHandler.js';
 import userModel from '../models/usermodel.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -34,7 +34,12 @@ const loginUser = asyncHandler(async (req,res)=>{
 });
 
 const logoutUser = asyncHandler(async (req,res)=>{
-    console.log('loggingout  user....');
+    console.log('logging out');
+    res.cookie('jwt','',{
+        httpOnly:true,
+        expires: new Date(0),
+    });
+    res.status(200).json({message:'Logged out successfully'});
     
 });
 

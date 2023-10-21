@@ -1,21 +1,10 @@
 import { Row,Col } from 'react-bootstrap';
 import { useGetCabsQuery } from '../slices/cabApiSlice.js';
-import Cab from './cab.js';
+import Cab from './cab.jsx';
 import Loading from './loading.js';
 import Message from './message.js';
-import {useSelector } from 'react-redux';
-import Button from 'react-bootstrap/Button';
-
-
-
-
 
 const Cabs = ()=>{
-    const addCabHandler = ()=>{
-        console.log('adding new cab');
-    }
-
-    const {userInfo} = useSelector((state)=>state.auth);
     const {data:cabs,isLoading,error } =  useGetCabsQuery({});
     const styles = {
   container: {
@@ -29,10 +18,6 @@ const Cabs = ()=>{
     return(
         <>
             { isLoading ? (<Loading />) :error ? (<Message variant='danger' children={error?.data?.message||error.error}></Message>) :(<>
-                {
-                    userInfo?.isAdmin && <><Button className='my-3' variant="primary" onClick={addCabHandler} > Add Cab</Button></>
-
-                }
                 <Row className='my-3'>
                 {
                     

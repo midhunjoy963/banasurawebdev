@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 dotenv.config();
 import connectDB from './config/db.js';
-import mongoose from 'mongoose';
+//import mongoose from 'mongoose';
 import cabRoutes from './routes/cabroutes.js';
 import userRoutes from './routes/userroutes.js';
 import uploadRoutes from './routes/uploadroutes.js';

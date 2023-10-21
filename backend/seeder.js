@@ -24,6 +24,11 @@ const users = [
     email: "amal@gmail.com",
     password: becript.hashSync("123456789", 10),
   },
+  {
+    name: "Sureka",
+    email: "sureka@gmail.com",
+    password: becript.hashSync("sureka26", 10),
+  },
 ];
 
 const cabs = [

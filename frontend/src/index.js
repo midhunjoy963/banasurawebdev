@@ -14,7 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import HomeScreen from "./screens/homescreen.js";
 import CabsScreen from "./screens/cabsscreen.js";
-import CabDetailScreen from "./screens/cabdetailscreen.js";
+import CabDetailScreen from "./screens/cabdetailscreen.jsx";
 import SignUpScreen from "./screens/signUpScreen.jsx";
 import reportWebVitals from "./reportWebVitals";
 import LoginScreen from "./screens/loginScreen.jsx";
@@ -27,8 +27,8 @@ const route = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />} />
-      <Route path="/api/cabs" element={<CabsScreen />} />
-      <Route path="/api/cabs/:id" element={<CabDetailScreen />} />
+      <Route path="/cabs" element={<CabsScreen />} />
+      <Route path="/cabs/:id" element={<CabDetailScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/signup" element={<SignUpScreen />} />
 

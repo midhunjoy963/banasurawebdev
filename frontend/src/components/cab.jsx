@@ -5,7 +5,7 @@ import Rating from "./rating";
 const Cab = ({ cab }) => {
   return (
     <Card>
-      <Link to={`/api/cabs/${cab._id}`}>
+      <Link to={`/cabs/${cab._id}`}>
         <Card.Img
           variant="top"
           src={`/${cab.image}`}
@@ -15,7 +15,7 @@ const Cab = ({ cab }) => {
       <Card.Body>
         <Link
           style={{ textDecoration: "none", color: "#68b072" }}
-          to={`/api/cabs/${cab._id}`}
+          to={`/cabs/${cab._id}`}
         >
           <b>
             <Card.Title>{cab.name}</Card.Title>

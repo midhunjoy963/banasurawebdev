@@ -1,16 +1,17 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-
+import React from "react";
+import { Container } from "react-bootstrap";
 const footer = () => {
-    const year =new Date().getFullYear();
+  const year = new Date().getFullYear();
   return (
     <footer>
-        <Container className="text-center py-3">
-            <p>Team Banasura &copy; {year}</p>
-        </Container>
-        
+      <Container
+        style={{ position: "inherit", bottom: 0 }}
+        className="text-center py-3"
+      >
+        <p>Team Banasura &copy; {year}</p>
+      </Container>
     </footer>
-  )
-}
+  );
+};
 
-export default footer
+export default footer;

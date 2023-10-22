@@ -102,6 +102,7 @@ const LoginScreen = () => {
               backgroundColor: "#68b072",
               width: "100%",
               outline: "none",
+              border: "none",
             }}
             variant="primary"
             className="mt-2"

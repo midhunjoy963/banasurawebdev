@@ -4,7 +4,7 @@ import { Form, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/formContainer";
 import Loading from "../components/loading";
-import { useLoginMutation } from "../slices/userApiSlice.js";
+import { useSignUpMutation } from "../slices/userApiSlice.js";
 import { toast } from "react-toastify";
 import { setCredentials } from "../slices/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,23 +19,27 @@ const styles = {
     minHeight: "100vh",
   },
 };
-const signUpScreen = () => {
+const SignUpScreen = () => {
   // const [email, setEmail] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isMatch, setMatch] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const togglePasswordVisibility1 = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [signup, { isLoading }] = useSignUpMutation();
   const { userInfo } = useSelector((state) => state.auth);
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
@@ -48,7 +52,7 @@ const signUpScreen = () => {
   }, [userInfo, redirect, navigate]);
 
   const checkPassword = () => {
-    if (password === confirmPassword) {
+    if (password == confirmPassword) {
       setMatch(true);
     } else {
       setMatch(false);
@@ -57,9 +61,10 @@ const signUpScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    checkPassword();
     if (isMatch) {
       try {
-        const res = await login({ name, email, password }).unwrap();
+        const res = await signup({ name, email, password }).unwrap();
         dispatch(setCredentials({ ...res }));
         navigate(redirect);
         toast("Logged In Successfully", {
@@ -89,8 +94,8 @@ const signUpScreen = () => {
   return (
     <div style={styles.container}>
       <FormContainer>
-        <h1>Login</h1>
-        <h5>Welcome back, you've been missed!</h5>
+        <h1>Create account</h1>
+        <h5>Register below with your details!</h5>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name" className="my-3">
             {/* <Form.Label>Email</Form.Label> */}
@@ -133,12 +138,11 @@ const signUpScreen = () => {
             </div>
           </Form.Group>
           <Form.Group controlId="password" className="my-3">
-            {/* <Form.Label>Password</Form.Label> */}
             <div className="input-group">
               <Form.Control
-                type={showPassword ? "text" : "password"}
+                type={showConfirmPassword ? "text" : "password"}
                 placeholder="Enter Confirm Password"
-                value={password}
+                value={confirmPassword}
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
                   checkPassword();
@@ -147,9 +151,11 @@ const signUpScreen = () => {
               <div className="input-group-append">
                 <Button
                   variant="outline-secondary"
-                  onClick={togglePasswordVisibility}
+                  onClick={togglePasswordVisibility1}
                 >
-                  <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                  <FontAwesomeIcon
+                    icon={showConfirmPassword ? faEye : faEyeSlash}
+                  />
                 </Button>
               </div>
             </div>
@@ -160,12 +166,13 @@ const signUpScreen = () => {
               backgroundColor: "#68b072",
               width: "100%",
               outline: "none",
+              border: "none",
             }}
             variant="primary"
             className="mt-2"
             disabled={isLoading}
           >
-            Login
+            SIGN UP
           </Button>
           {isLoading && <Loading />}
         </Form>
@@ -182,4 +189,4 @@ const signUpScreen = () => {
   );
 };
 
-export default signUpScreen;
+export default SignUpScreen;

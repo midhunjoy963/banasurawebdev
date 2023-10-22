@@ -1,41 +1,34 @@
-import { Row,Col } from 'react-bootstrap';
-import { useGetCabsQuery } from '../slices/cabApiSlice.js';
-import Cab from './cab.jsx';
-import Loading from './loading.js';
-import Message from './message.js';
+import { Row, Col } from "react-bootstrap";
+import { useGetCabsQuery } from "../slices/cabApiSlice.js";
+import Cab from "./cab.jsx";
+import Loading from "./loading.js";
+import Message from "./message.js";
 
-const Cabs = ()=>{
-    const {data:cabs,isLoading,error } =  useGetCabsQuery({});
-    const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh', 
-  },
-};
-    return(
+const Cabs = () => {
+  const { data: cabs, isLoading, error } = useGetCabsQuery({});
+
+  return (
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : error ? (
+        <Message
+          variant="danger"
+          children={error?.data?.message || error.error}
+        ></Message>
+      ) : (
         <>
-            { isLoading ? (<Loading />) :error ? (<Message variant='danger' children={error?.data?.message||error.error}></Message>) :(<>
-                <Row className='my-3'>
-                {
-                    
-                    cabs.map((cab,i)=>(
-                        <div style={styles.container}>
-                        <Col key={cab._id} sm={12} md={6} lg={4} xl={3}>
-                                <Cab cab={cab}></Cab>
-                        </Col>
-                        </div>
-                    ))
-                    
-                }
-                </Row>
-                
-            </>)}
+          <Row className="my-3">
+            {cabs.map((cab, i) => (
+              <Col key={cab._id} sm={12} md={6} lg={4} xl={3}>
+                <Cab cab={cab}></Cab>
+              </Col>
+            ))}
+          </Row>
         </>
-        
-    )
-}
+      )}
+    </>
+  );
+};
 
 export default Cabs;

@@ -5,7 +5,7 @@ const footer = () => {
   return (
     <footer>
       <Container
-        style={{ position: "inherit", bottom: 0 }}
+        style={{ position: "relative", bottom: 0 }}
         className="text-center py-3"
       >
         <p>Team Banasura &copy; {year}</p>

@@ -1,12 +1,12 @@
-import React from 'react';
-import { BsFillCarFrontFill } from 'react-icons/bs';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Nav } from 'react-bootstrap';
-import '../assets/styles/floating.css';
+import React from "react";
+import { BsFillCarFrontFill } from "react-icons/bs";
+import { LinkContainer } from "react-router-bootstrap";
+import { Nav } from "react-bootstrap";
+import "../assets/styles/floating.css";
 
 const FloatingCabIcon = ({ to }) => {
   return (
-    <LinkContainer to='/api/cabs'>
+    <LinkContainer to="/cabs">
       <Nav.Link className="floating-cab-icon">
         <BsFillCarFrontFill />
         <div className="icon-label">Ride</div>

@@ -1,10 +1,12 @@
-import React from 'react';
-import Cabs from '../components/cabs';
+import React from "react";
+import Cabs from "../components/cabs.jsx";
 
 const cabsscreen = () => {
   return (
-    <Cabs></Cabs>
-  )
-}
+    <div style={{ marginLeft: "10px" }}>
+      <Cabs></Cabs>
+    </div>
+  );
+};
 
-export default cabsscreen
+export default cabsscreen;

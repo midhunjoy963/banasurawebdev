@@ -56,7 +56,7 @@ const getCabs = asyncHandler(async (req,res)=>{
 const getCabById = asyncHandler(async (req,res)=>{
     const cab = await cabModel.findById(req.params.id);
     if(cab){
-        res.json(cab);
+        return res.json(cab);
     }
     res.status(404).send({message:'Product not found'});
 });
@@ -83,21 +83,38 @@ const createCab = asyncHandler(async (req,res)=>{
 //@route PUT /api/cabs/:id
 //@access private/adimin
 const updateCab = asyncHandler(async (req,res)=>{
-    const {name,description} = req.body;
-
+    console.log('update request came to server....');
+    console.log('id: ',req.params.id)
+    const {name,discription} = req.body;
+    console.log('body',req.body);
     const cab = await cabModel.findById(req.params.id);
     if(cab){
         cab.name = name;
-        cab.description = description;
-        const updatedCab = await cabModel.save();
-        res.json(updatedCab);
+        cab.discription = discription;
+        const updatedCab = await cab.save();
+        console.log('udpadated cab',updatedCab);
+        res.status(201).json(updatedCab);
     }
     else{
-        res.status(404);
         throw new Error('Cab not Found');
     }
     
 });
 
+//@desc delete a cab
+//@route DELETE /api/cabs/:id
+//@access private/adimin
+const deleteCab = asyncHandler(async (req,res)=>{
+    try{
+        await cabModel.deleteOne({ _id : req.params.id });
+        res.status(200).json({message:'OK deleted'});
+    }
+    catch(err){
+        res.status(404).json({message:'resourse not found'});
+    }
+    
+    
+});
 
-export {getCabs,getCabById,createCab,updateCab};
+
+export {getCabs,getCabById,createCab,updateCab,deleteCab};

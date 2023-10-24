@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { useGetCabDetailQuery } from ".././slices/cabApiSlice.js";
 import { useParams } from "react-router-dom";
-import Loading from "../components/loading.js";
+import Loading from "../components/loading.jsx";
 import Rating from "../components/rating";
 import { Carousel, Image, Container } from "react-bootstrap";
 

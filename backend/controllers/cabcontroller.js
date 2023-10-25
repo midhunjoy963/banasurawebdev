@@ -85,12 +85,14 @@ const createCab = asyncHandler(async (req,res)=>{
 const updateCab = asyncHandler(async (req,res)=>{
     console.log('update request came to server....');
     console.log('id: ',req.params.id)
-    const {name,discription} = req.body;
+    const {name,discription,image} = req.body;
     console.log('body',req.body);
     const cab = await cabModel.findById(req.params.id);
     if(cab){
         cab.name = name;
         cab.discription = discription;
+        cab.image = image;
+
         const updatedCab = await cab.save();
         console.log('udpadated cab',updatedCab);
         res.status(201).json(updatedCab);

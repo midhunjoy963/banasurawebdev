@@ -5,9 +5,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 import connectDB from './config/db.js';
 //import mongoose from 'mongoose';
-import cabRoutes from './routes/cabroutes.js';
-import userRoutes from './routes/userroutes.js';
-import uploadRoutes from './routes/uploadroutes.js';
+import cabRoutes from './routes/cabRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 //import { notFound,errorHandler } from './custommiddlewares/errorMiddleware.js';
 
 const port =process.env.PORT;

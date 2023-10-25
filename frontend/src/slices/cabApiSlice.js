@@ -1,4 +1,4 @@
-import {CAB_URL} from '../constants.js';
+import {CAB_URL, UPLOAD_URL} from '../constants.js';
 import {apiSlice} from './apiSlice.js';
 
 
@@ -39,6 +39,13 @@ export const cabApiSlice = apiSlice.injectEndpoints({
                 method:'DELETE',
             }),
             invalidatesTags:['cab']
+        }),
+        uploadCabImage:builder.mutation({
+            query:(data)=>({
+                url:`${UPLOAD_URL}`,
+                method:'POST',
+                body:data,
+            })
         })
 
     }),
@@ -46,4 +53,11 @@ export const cabApiSlice = apiSlice.injectEndpoints({
 
 });
 
-export const{useGetCabsQuery,useGetCabDetailQuery,useCreateCabMutation,useUpdateCabMutation,useDeleteCabMutation} = cabApiSlice;
+export const{
+    useGetCabsQuery,
+    useGetCabDetailQuery,
+    useCreateCabMutation,
+    useUpdateCabMutation,
+    useDeleteCabMutation,
+    useUploadCabImageMutation
+} = cabApiSlice;

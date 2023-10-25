@@ -15,7 +15,7 @@ const Cabdetailscreen = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <>
+        <div style={{ marginLeft: "10%", marginRight: "10%" }}>
           <h1>{cab.name}</h1>
           <Rating numreviews={cab.noOfReviews} rating={cab.rating}></Rating>
           <Row className="my-3">
@@ -24,16 +24,7 @@ const Cabdetailscreen = () => {
                 <Carousel.Item>
                   <Container className="text-center homeimagecontainer">
                     <Image
-                      src="../images/touristspots/dam.jpg"
-                      style={{ height: "50vh", objectFit: "cover" }}
-                    />
-                  </Container>
-                </Carousel.Item>
-
-                <Carousel.Item>
-                  <Container className="text-center homeimagecontainer">
-                    <Image
-                      src="../\cabs\6534230bf239f4ac12759676images/touristspots/chembra.jpg"
+                      src="https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=600"
                       style={{ height: "50vh", objectFit: "cover" }}
                     />
                   </Container>
@@ -41,7 +32,7 @@ const Cabdetailscreen = () => {
                 <Carousel.Item>
                   <Container className="text-center homeimagecontainer">
                     <Image
-                      src="../images/touristspots/9000.jpg"
+                      src="https://images.pexels.com/photos/18547037/pexels-photo-18547037/free-photo-of-man-driving-hindustan-ambassador-as-taxi.jpeg?auto=compress&cs=tinysrgb&w=600"
                       style={{ height: "50vh", objectFit: "cover" }}
                     />
                   </Container>
@@ -49,15 +40,20 @@ const Cabdetailscreen = () => {
                 <Carousel.Item>
                   <Container className="text-center homeimagecontainer">
                     <Image
-                      src="../images/touristspots/caves.jpg"
+                      src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=600"
                       style={{ height: "50vh", objectFit: "cover" }}
                     />
                   </Container>
                 </Carousel.Item>
               </Carousel>
             </Col>
+            <Col sm={12} md={6} lg={6} xl={6}>
+              <h4>Contact Details</h4>
+              <h5>Seating Capacity: 4</h5>
+              <h5>Charge/Km: {cab.chargePerKm} </h5>
+            </Col>
           </Row>
-        </>
+        </div>
       )}
     </>
   );

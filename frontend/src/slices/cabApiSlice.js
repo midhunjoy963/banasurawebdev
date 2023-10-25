@@ -7,8 +7,10 @@ export const cabApiSlice = apiSlice.injectEndpoints({
         getCabs:builder.query({
             query: ()=>({
                 url:CAB_URL,
+                
             }),
-            keepUnUsedDataFor:5
+            keepUnUsedDataFor:5,
+            providesTags:['Cabs']
         }),
         getCabDetail:builder.query({
             query: (cabId)=>({
@@ -26,7 +28,15 @@ export const cabApiSlice = apiSlice.injectEndpoints({
         updateCab:builder.mutation({
             query:(data)=>({
                 url:`${CAB_URL}/${data._id}`,
-                method:'PUT',                
+                method:'PUT',
+                body:data,
+            }),
+            invalidatesTags:['Cabs']
+        }),
+        deleteCab:builder.mutation({
+            query:(cabId)=>({
+                url:`${CAB_URL}/${cabId}`,
+                method:'DELETE',
             }),
             invalidatesTags:['cab']
         })
@@ -36,4 +46,4 @@ export const cabApiSlice = apiSlice.injectEndpoints({
 
 });
 
-export const{useGetCabsQuery,useGetCabDetailQuery,useCreateCabMutation,useUpdateCabMutation} = cabApiSlice;
+export const{useGetCabsQuery,useGetCabDetailQuery,useCreateCabMutation,useUpdateCabMutation,useDeleteCabMutation} = cabApiSlice;

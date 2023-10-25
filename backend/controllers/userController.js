@@ -30,8 +30,7 @@ const loginUser = asyncHandler(async (req, res) => {
   } else {
     res.status(401);
     throw new Error("Invalid Credentials");
-  }
-  res.send("logging in");
+  }  
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
@@ -40,7 +39,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     expires: new Date(0),
   });
-  res.status(200).json({ message: "Logged out successfully" });
+   return res.status(200).json({ message: "Logged out successfully" });
 });
 
 const createNewUser = asyncHandler(async (req, res) => {

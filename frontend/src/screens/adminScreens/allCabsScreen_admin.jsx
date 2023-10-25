@@ -1,12 +1,12 @@
 import React from 'react';
 import {Button,Table,Row,Col} from 'react-bootstrap';
-import { FaEdit } from "react-icons/fa";
+import { FaEdit,FaTrash } from "react-icons/fa";
 
 import {useSelector,useDispatch} from 'react-redux';
 
-import Loading from '../../components/loading';
+import Loading from '../../components/loading.jsx';
 import Message from '../../components/message';
-import { useGetCabsQuery,useCreateCabMutation } from '../../slices/cabApiSlice';
+import { useGetCabsQuery,useCreateCabMutation,useDeleteCabMutation } from '../../slices/cabApiSlice';
 import {LinkContainer} from 'react-router-bootstrap';
 import { toast } from 'react-toastify';
 
@@ -14,6 +14,7 @@ const AllCabs = () => {
     //const {userInfo} = useSelector((state)=>state.auth);
     const {data:cabs,isLoading,error,refetch } =  useGetCabsQuery({});
     const [createCab,{isLoading:loadingCreate}] = useCreateCabMutation();
+    const [deleteCab,{isLoading:isDeleteInProgress}] = useDeleteCabMutation();
     const  createCabHandler = async () =>{
         if(window.confirm('Confirm To Create a New Cab.')){
             try{
@@ -26,7 +27,20 @@ const AllCabs = () => {
             }
         }
     }
-    
+
+    const cabDeleteHandler = async (id) =>{
+        console.log('id',id);
+        if(window.confirm('Confirm to proceed with deletion.')){
+            try{
+                await deleteCab(id);
+                console.log('cab deletion successfull');
+                refetch();
+            }
+            catch(err){
+                toast.error(err?.data?.message||err.error);
+            }
+        }
+    }    
     return (
         <>
             <Row className='align-items-center'>
@@ -34,7 +48,7 @@ const AllCabs = () => {
                     <h1>Cabs</h1>
                 </Col>
                 <Col className='text-end'>
-                    <Button onClick={createCabHandler}><FaEdit />Add New Cab</Button>
+                    <Button onClick={createCabHandler} disabled={loadingCreate}><FaEdit />Add New Cab</Button>
                 </Col>
             </Row>
 
@@ -57,6 +71,9 @@ const AllCabs = () => {
                                 <td><LinkContainer to={`/admin/cab/${cab._id}/edit`}>
                                         <FaEdit></FaEdit>
                                     </LinkContainer></td>
+                                    <td><Button variant='danger' className='btn-sm' disabled={isDeleteInProgress} onClick={()=>cabDeleteHandler(cab._id)}>
+                                        <FaTrash />
+                                        </Button></td>
                                     
                             </tr>
                         ))

@@ -1,6 +1,6 @@
 import {Spinner} from 'react-bootstrap';
 
-const loading = () => {
+const Loading = () => {
   return (
     <Spinner animation="border" variant="primary" 
     style={{
@@ -13,4 +13,4 @@ const loading = () => {
   )
 }
 
-export default loading;
+export default Loading;

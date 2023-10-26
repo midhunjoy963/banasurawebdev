@@ -2,7 +2,7 @@ import { Row, Col } from "react-bootstrap";
 import { useGetCabsQuery } from "../slices/cabApiSlice.js";
 import Cab from "./cab.jsx";
 import Loading from "./loading.jsx";
-import Message from "./message.js";
+import Message from "./message.jsx";
 
 const Cabs = () => {
   const { data: cabs, isLoading, error } = useGetCabsQuery({});

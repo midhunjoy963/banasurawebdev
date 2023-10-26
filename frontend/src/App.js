@@ -1,15 +1,15 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Header from "./components/header.js";
+import Header from "./components/header.jsx";
 import Footer from "./components/footer.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
-    <>
+    <div style={{overflowY:"hidden"}} >
       <Header></Header>
-      <Outlet></Outlet>
+      <Outlet ></Outlet>
       <Footer></Footer>
       <ToastContainer
         position="top-right"
@@ -23,8 +23,8 @@ const App = () => {
         pauseOnHover
         theme="light"
       />
-      <ToastContainer />
-    </>
+    </div>
+    
   );
 };
 

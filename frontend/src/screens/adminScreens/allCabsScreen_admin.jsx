@@ -42,12 +42,12 @@ const AllCabs = () => {
         }
     }    
     return (
-        <>
+        <div className='my-5'>
             <Row className='align-items-center'>
                 <Col>
                     <h1>Cabs</h1>
                 </Col>
-                <Col className='text-end'>
+                <Col className='text-end mx-3'>
                     <Button onClick={createCabHandler} disabled={loadingCreate}><FaEdit />Add New Cab</Button>
                 </Col>
             </Row>
@@ -69,7 +69,7 @@ const AllCabs = () => {
                                 <td>{cab.name}</td>
                                 <td>{cab.discription}</td>
                                 <td><LinkContainer to={`/admin/cab/${cab._id}/edit`}>
-                                        <FaEdit></FaEdit>
+                                        <FaEdit>Edit Preview</FaEdit>
                                     </LinkContainer></td>
                                     <td><Button variant='danger' className='btn-sm' disabled={isDeleteInProgress} onClick={()=>cabDeleteHandler(cab._id)}>
                                         <FaTrash />
@@ -84,7 +84,7 @@ const AllCabs = () => {
                 </Table>
                 </>
             )}     
-        </>   
+        </div>   
     );
 }
 

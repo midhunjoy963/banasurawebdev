@@ -9,7 +9,9 @@ const App = () => {
   return (
     <div style={{overflowY:"hidden"}} >
       <Header></Header>
+      <div style={{paddingTop:'40px'}}>
       <Outlet ></Outlet>
+      </div>
       <Footer></Footer>
       <ToastContainer
         position="top-right"

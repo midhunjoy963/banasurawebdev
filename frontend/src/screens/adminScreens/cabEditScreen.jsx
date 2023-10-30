@@ -1,6 +1,7 @@
-import {Form,Button} from 'react-bootstrap';
+import {Form,Button,Row,Col} from 'react-bootstrap';
 import { useParams,useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
+import { FaEdit,FaTrash } from "react-icons/fa";
 
 import { 
   useGetCabDetailQuery,
@@ -11,6 +12,7 @@ import Cab from '../../components/cab.jsx';
 import Loading from '../../components/loading.jsx';
 import FormContainer from '../../components/formContainer.jsx';
 import { toast } from 'react-toastify';
+import { LinkContainer } from 'react-router-bootstrap';
 
 
 
@@ -44,8 +46,7 @@ const CabEditScreen = ()=>{
         else{
           toast.success('Cab Updated..');
           refetch();
-          navigate('/admin/cabList');
-
+          navigate(`/admin/cab/${cab._id}/edit`);
         }
       }
       catch(err){
@@ -79,9 +80,19 @@ const CabEditScreen = ()=>{
       }
     }, [cab])
     
-
+    const goToDetailEditPage = () =>{
+      navigate(`/admin/cab/${cab._id}/editDetails`);
+    }
     
     return (
+      <div className="my-5 mx-3">
+      {cab&&
+        <Row className='align-items-center'>
+                <Col className='text-end'>
+                  <Button onClick={goToDetailEditPage} ><FaEdit />Edit Details Page</Button>
+                </Col>
+        </Row>
+      } 
       <FormContainer >
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name" className="my-3">
@@ -136,6 +147,22 @@ const CabEditScreen = ()=>{
         </Form>
         
       </FormContainer>
+
+      <Row className='text-center my-3'>
+          <Col><h2>Preview</h2></Col>
+      </Row>
+      {cab?
+        (<Row className="my-3 justify-content-md-center">
+            <Col className="my-3" sm={12} md={6} lg={4} xl={3}>
+                <Cab cab={cab}></Cab>
+            </Col>
+        </Row>):
+        (
+          <Loading />
+        )
+      }
+
+      </div>
     )
 
 }

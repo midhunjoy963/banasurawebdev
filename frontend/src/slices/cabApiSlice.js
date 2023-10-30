@@ -46,7 +46,15 @@ export const cabApiSlice = apiSlice.injectEndpoints({
                 method:'POST',
                 body:data,
             })
-        })
+        }),
+        createReview:builder.mutation({
+            query:(data)=>({
+                url:`${CAB_URL}/${data.cabId}/reviews`,
+                method:'POST',
+                body:data,
+            }),
+            invalidatesTags:['Cab'],
+        }),
 
     }),
 
@@ -59,5 +67,6 @@ export const{
     useCreateCabMutation,
     useUpdateCabMutation,
     useDeleteCabMutation,
-    useUploadCabImageMutation
+    useUploadCabImageMutation,
+    useCreateReviewMutation,
 } = cabApiSlice;

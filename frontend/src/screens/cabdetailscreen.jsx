@@ -1,23 +1,30 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col,Container, Carousel, Image,Button } from "react-bootstrap";
+import {Link,useNavigate} from 'react-router-dom'
 import { useGetCabDetailQuery } from ".././slices/cabApiSlice.js";
 import { useParams } from "react-router-dom";
 import Loading from "../components/loading.jsx";
 import Rating from "../components/rating";
-import { Carousel, Image, Container } from "react-bootstrap";
 
 const Cabdetailscreen = () => {
   const { id: cabId } = useParams();
-  const { data: cab, isLoading, error } = useGetCabDetailQuery(cabId);
-  console.log(cab);
+  const { data: cab, isLoading } = useGetCabDetailQuery(cabId);
+  
   return (
     <>
+      
       {isLoading ? (
         <Loading />
       ) : (
-        <div style={{ marginLeft: "10%", marginRight: "10%" }}>
-          <h1>{cab.name}</h1>
-          <Rating numreviews={cab.noOfReviews} rating={cab.rating}></Rating>
+        <Container >
+          <Row className="my-3">
+            <Col>
+              <h1>{cab.name}</h1>
+              <Rating numreviews={cab.noOfReviews} rating={cab.rating}></Rating>
+            </Col>
+          </Row>
+          
+          
           <Row className="my-3">
             <Col key={cab._id} sm={12} md={6} lg={6} xl={6}>
               <Carousel fade>
@@ -52,8 +59,18 @@ const Cabdetailscreen = () => {
               <h5>Seating Capacity: 4</h5>
               <h5>Charge/Km: {cab.chargePerKm} </h5>
             </Col>
+            
           </Row>
-        </div>
+          <Container className="my-3">
+            <Row className="my-3">
+              <Col >col 1 row 1</Col>
+            </Row>
+            <Row className="my-3">
+              <Col> col 2 Row2</Col>
+            </Row>
+          </Container>
+         
+        </Container>
       )}
     </>
   );

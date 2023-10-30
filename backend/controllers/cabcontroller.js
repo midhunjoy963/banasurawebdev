@@ -1,52 +1,21 @@
 import asyncHandler from '../custommiddlewares/asyncHandler.js';
 import cabModel from '../models/cabmodel.js';
 
-const cabs = [  
-    {
-    
-        name:'Ferrary',
-        image:'images/cabs/ferrari.jpg',    
-        rating:3,
-        noOfReviews:6,
-        discription:'This is my all new ferrary',
-        chargePerKm:100
-    },
-    {
-    
-        name:'Ambaseder', 
-        image:'images/cabs/ambassader.jpg',   
-        rating:4.6,
-        noOfReviews:6,
-        discription:'This is my all old gold',
-        chargePerKm:350
-    },
-    {
-    
-        name:'Maruthi 800', 
-        image:'images/cabs/800.jpg', 
-        rating:3.5,
-        noOfReviews:10,
-        discription:'This not just old its the new',
-        chargePerKm:200
-    },
-    
-];
+
 
 //@desc fetch all cabs
 //@route GET/api/cabs
 //@access Public
 const getCabs = asyncHandler(async (req,res)=>{
-    if(process.env.DEV_USER==='midhun'){
-        const cabs = await cabModel.find();
-        if(cabs){
-            res.json(cabs);
-        }
-
+    const cabs = await cabModel.find();
+    if(cabs){
+        res.json(cabs);
     }
     else{
-        res.json(cabs);
-    
-    }  
+        res.json({message:'No cabs Found'});
+    }
+
+     
     
 });
 
@@ -117,6 +86,69 @@ const deleteCab = asyncHandler(async (req,res)=>{
     
     
 });
+// const reviewSchema = new mongoose.Schema(
+//     {
+//       user: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         required: true,
+//         ref: "User",
+//       },
+//       name: {
+//         type: String,
+//         required: true,
+//       },
+//       rating: {
+//         type: Number,
+//         required: true,
+//       },
+//       comment: {
+//         type: String,
+//         required: true,
+//       },
+//     },
+//     {
+//       timestamps: true,
+//     }
+//   );
+
+//@desc create a review
+//@route POST /api/cabs
+//@access private/adimin
+const createReview = asyncHandler(async (req,res)=>{
+    const {comment,rating} = req.body;
+    const cab = await cabModel.findById(req.params.id);
+    if(cab){
+        const alreadyReviewd = cab.reviews.find(
+            (review) => review.user.toString() === req.user._id.toString()
+        );
+        if(alreadyReviewd){
+            res.status(400)
+            throw new Error('Already reviewed');
+        }
+        const review = {
+            name : req.user.name,
+            rating:Number(rating),
+            comment:comment,
+            user:req.user._id,
+        };
+        cab.reviews.push(review);
+        cab.numberOfReviews = cab.reviews.length;
+        cab.rating = cab.reviews.reduce((acc,review) => acc+review.rating,0)/cab.numberOfReviews;
+        await cab.save()
+        res.status(201).json({message:'Review Added ..'});
+    }
+    else{
+        res.status(404);
+        throw new Error('Cab not Found');
+    }
+});
 
 
-export {getCabs,getCabById,createCab,updateCab,deleteCab};
+export {
+    getCabs,
+    getCabById,
+    createCab,
+    updateCab,
+    deleteCab,
+    createReview
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image,Carousel,Row,Col } from 'react-bootstrap';
+import { Image,Carousel,Row,Col, Container } from 'react-bootstrap';
 import HomePageGallery from '../components/homePageGallery.jsx';
 import { useGetCabsQuery } from '../slices/cabApiSlice.js';
 import Cab from '../components/cab.jsx';
@@ -20,7 +20,24 @@ const HomeScreen2 = () => {
   // });
   return (
     <>
-    <HomePageGallery></HomePageGallery>
+    {/* <HomePageGallery></HomePageGallery> */}
+    <Container  style={
+      { 
+      backgroundImage: 'url("../images/touristspots/dam.jpg")', 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center', 
+      height: '100vh', 
+      margin: '0px',
+      minWidth: '100%',
+      padding: '0px',
+      color: 'white'
+      }}>
+      <div className='text-center' style={{padding:'20%'}}>
+        <h1 style={{ fontSize: '3rem' }}>Team Banasura</h1>
+        <p style={{ fontSize: '1.5rem' }}>We, Team Banasura, are a team of young individuals passionate about promoting and preserving the natural beauty of Wayanad and creating unforgettable experiences for visitors.</p>
+      </div>
+    </Container>
+
     {!isLoading &&
         <>
           <div
@@ -28,7 +45,8 @@ const HomeScreen2 = () => {
               display: 'flex',
               overflowX:'scroll',
               width: '100%',
-              backgroundColor:""
+              backgroundColor:"",
+              marginTop:'5px'
             }}
           >
           

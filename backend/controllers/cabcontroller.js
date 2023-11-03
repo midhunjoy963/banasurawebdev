@@ -1,5 +1,6 @@
 import asyncHandler from '../custommiddlewares/asyncHandler.js';
 import cabModel from '../models/cabmodel.js';
+import userModel from '../models/usermodel.js';
 
 
 
@@ -143,6 +144,25 @@ const createReview = asyncHandler(async (req,res)=>{
     }
 });
 
+const getContact = asyncHandler(async (req,res) =>{
+    console.log('request came for contact...',req.params.id);
+    const cab = await cabModel.findById(req.params.id);
+    console.log(cab);
+    const contact = await userModel.findById(cab.contact).select('-password');
+    if(cab && !contact){
+        res.status(201).json({number:'123456789'});
+    }
+    if(contact){
+        res.status(201).send(contact);
+    }
+    else{
+        res.status(404);
+        throw new Error('Contact Details not Found');
+    }
+
+}
+
+);
 
 export {
     getCabs,
@@ -150,5 +170,6 @@ export {
     createCab,
     updateCab,
     deleteCab,
-    createReview
+    createReview,
+    getContact
 };

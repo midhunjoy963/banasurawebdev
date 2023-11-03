@@ -55,6 +55,11 @@ export const cabApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags:['Cab'],
         }),
+        getContactDetails:builder.query({
+            query:(cabId) => ({
+              url:`${CAB_URL}/${cabId}/contact`,
+            })
+          })
 
     }),
 
@@ -69,4 +74,5 @@ export const{
     useDeleteCabMutation,
     useUploadCabImageMutation,
     useCreateReviewMutation,
+    useGetContactDetailsQuery
 } = cabApiSlice;

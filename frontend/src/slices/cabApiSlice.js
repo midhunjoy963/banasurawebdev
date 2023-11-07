@@ -49,7 +49,7 @@ export const cabApiSlice = apiSlice.injectEndpoints({
         }),
         createReview:builder.mutation({
             query:(data)=>({
-                url:`${CAB_URL}/${data.cabId}/reviews`,
+                url:`${CAB_URL}/${data.cabId}/review`,
                 method:'POST',
                 body:data,
             }),

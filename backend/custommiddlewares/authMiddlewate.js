@@ -3,8 +3,8 @@ import asyncHandler from './asyncHandler.js';
 import User from '../models/usermodel.js';
 
 const protect = asyncHandler(async (req,res,next)=>{
+    console.log('req came checking login...');
     let token;   
-
     //read the jwt from cookie
     token = req.cookies.jwt;
 

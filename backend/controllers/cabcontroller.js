@@ -116,6 +116,7 @@ const deleteCab = asyncHandler(async (req,res)=>{
 //@route POST /api/cabs
 //@access private/adimin
 const createReview = asyncHandler(async (req,res)=>{
+    console.log('create review request came...')
     const {comment,rating} = req.body;
     const cab = await cabModel.findById(req.params.id);
     if(cab){

@@ -145,6 +145,7 @@ const Cabdetailscreen = () => {
                   size="sm"
                   style={{ backgroundColor: "#68b072", border: "none" }}
                   onClick={() => {
+                    
                     setShowAddReview(true);
                   }}
                   disabled={showAddReview}

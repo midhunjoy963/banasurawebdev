@@ -59,7 +59,7 @@ export const cabApiSlice = apiSlice.injectEndpoints({
             query:(cabId) => ({
               url:`${CAB_URL}/${cabId}/contact`,
             })
-          })
+        }),
 
     }),
 

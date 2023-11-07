@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetCabDetailQuery } from '../../slices/cabApiSlice';
+import { 
+  useGetCabDetailQuery,
+  useGetContactDetailsQuery } from '../../slices/cabApiSlice';
 import Loading from '../../components/loading';
 import Rating from '../../components/rating';
+import FormContainer from '../../components/formContainer';
 import { Container,Row,Col,Carousel,Image,Button } from 'react-bootstrap';
-import { FaEdit } from 'react-icons/fa';
+import { FaEdit ,FaMobile} from 'react-icons/fa';
 
 const CabEditDetailsScreen = () => {
   const { id: cabId } = useParams();
   const { data: cab, isLoading } = useGetCabDetailQuery(cabId);
+  const {data:contact,isLoading:isContactLoading} = useGetContactDetailsQuery(cabId);
   const [isEditMode,setMode] = useState(false);
   const goToEditMode = () =>{
     setMode(true);
@@ -62,13 +66,28 @@ const CabEditDetailsScreen = () => {
                   </Container>
                 </Carousel.Item>
               </Carousel>
+            </Col>           
+            {isContactLoading?(<Loading />):
+            contact?(
+              <Col sm={12} md={3} lg={3} xl={3}>
+                <h2>Contact </h2>
+                <FaMobile />{contact.number}
+              <h4>Contact Details </h4>
+              
             </Col>
-            <Col sm={12} md={6} lg={6} xl={6}>
-              <h4>Contact Details</h4>
+            ):
+            (
+            <Col sm={12} md={3} lg={3} xl={3}>
+            <FormContainer>
+                <h4>here form will come</h4>
+            </FormContainer>
+            </Col>
+            )}
+
+            <Col sm={12} md={3} lg={3} xl={3}>
               <h5>Seating Capacity: 4</h5>
               <h5>Charge/Km: {cab.chargePerKm} </h5>
             </Col>
-            
           </Row>
           <Container className="my-3">
             <Row className="my-3">

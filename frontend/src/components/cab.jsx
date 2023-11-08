@@ -8,7 +8,7 @@ const Cab = ({ cab }) => {
       <Link to={`/cabs/${cab._id}`}>
         <Card.Img
           variant="top"
-          src={`/${cab.image}`}
+          src={`${cab.image}`}
           style={{ height: "18rem" }}
         />
       </Link>

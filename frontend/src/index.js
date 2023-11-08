@@ -12,8 +12,9 @@ import store from "./store.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
-import HomeScreen from "./screens/homescreen.js";
-import CabsScreen from "./screens/cabsscreen.js";
+//import HomeScreen from "./screens/homeScreen.jsx";
+import HomeScreen from "./screens/homeScreen2.jsx";
+import CabsScreen from "./screens/cabsScreen.jsx";
 import CabDetailScreen from "./screens/cabdetailscreen.jsx";
 import SignUpScreen from "./screens/signUpScreen.jsx";
 import reportWebVitals from "./reportWebVitals";
@@ -21,6 +22,7 @@ import LoginScreen from "./screens/loginScreen.jsx";
 import AdiminRoute from "./components/adminRoute.jsx";
 import AllCabs from "./screens/adminScreens/allCabsScreen_admin.jsx";
 import CabEditScreen from "./screens/adminScreens/cabEditScreen.jsx";
+import CabEditDetailsScreen from './screens/adminScreens/cabEditDetailsScreen.jsx';
 
 //first homescrren
 const route = createBrowserRouter(
@@ -35,6 +37,7 @@ const route = createBrowserRouter(
       <Route path="/admin" element={<AdiminRoute />}>
         <Route path="/admin/cabList" element={<AllCabs />} />
         <Route path="/admin/cab/:id/edit" element={<CabEditScreen />} />
+        <Route path="/admin/cab/:id/editDetails" element={<CabEditDetailsScreen />} />
       </Route>
     </Route>
   )

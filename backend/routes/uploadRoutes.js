@@ -19,7 +19,7 @@ function checkFileType(file,cb){
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = filetypes.test(file.mimetype);
     if(extname&&mimetype){
-        returncb(null,true);
+        return cb(null,true);
     }
     else{
         cb('Images Only');
@@ -33,7 +33,7 @@ const upload = multer({
 router.post('/',upload.single('image'),(req,res)=>{
     res.send({
         message:'Image Upload',
-        image: `/${req.file.path}`,
+        image: `/${req.file.path.replace(/\\/g, '/')}`,
     })
 });
 

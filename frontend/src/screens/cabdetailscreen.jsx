@@ -1,47 +1,72 @@
-import React from "react";
-import { Row, Col } from "react-bootstrap";
-import { useGetCabDetailQuery } from ".././slices/cabApiSlice.js";
+import { useState } from "react";
+import {
+  Row,
+  Col,
+  Container,
+  Carousel,
+  Image,
+  ListGroup,
+  Button,
+  Modal,
+} from "react-bootstrap";
+import { FaPhoneSquare } from "react-icons/fa";
+import { BiLogoWhatsapp, BiLogoGmail } from "react-icons/bi";
+import { BsFillPencilFill } from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useGetCabDetailQuery,
+  useGetContactDetailsQuery,
+} from ".././slices/cabApiSlice.js";
 import { useParams } from "react-router-dom";
-import Loading from "../components/loading.js";
+import Loading from "../components/loading.jsx";
 import Rating from "../components/rating";
-import { Carousel, Image, Container } from "react-bootstrap";
+import ReviewDetails from "../components/reviewDetails.jsx";
+import ReviewForm from "../components/reviewForm.jsx";
 
 const Cabdetailscreen = () => {
   const { id: cabId } = useParams();
-  const { data: cab, isLoading, error } = useGetCabDetailQuery(cabId);
-  console.log(cab);
+  const { data: cab, isLoading,refetch } = useGetCabDetailQuery(cabId);
+  if(cab){
+  console.log('reviews......',cab.reviews);
+  }
+  const { data: contact, isLoading: isContactLoading } =
+    useGetContactDetailsQuery(cabId);
+  const [showAddReview, setShowAddReview] = useState(false);
+  const closeModel =()=>{
+    console.log('closing modell....');
+    refetch();
+    setShowAddReview(false);
+    console.log('cab after review...',cab);
+  }
+
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
-        <>
-          <h1>{cab.name}</h1>
-          <Rating numreviews={cab.noOfReviews} rating={cab.rating}></Rating>
+        <Container>
           <Row className="my-3">
-            <Col key={cab._id} sm={12} md={6} lg={6} xl={6}>
+            <Col>
+              <h1>{cab.name}</h1>
+              <Rating numreviews={cab.noOfReviews} rating={cab.rating}></Rating>
+            </Col>
+          </Row>
+
+          <Row className="my-3">
+            <Col key={cab._id} sm={12} md={12} lg={6} xl={6}>
               <Carousel fade>
                 <Carousel.Item>
                   <Container className="text-center homeimagecontainer">
                     <Image
-                      src="../images/touristspots/dam.jpg"
-                      style={{ height: "50vh", objectFit: "cover" }}
-                    />
-                  </Container>
-                </Carousel.Item>
-
-                <Carousel.Item>
-                  <Container className="text-center homeimagecontainer">
-                    <Image
-                      src="../\cabs\6534230bf239f4ac12759676images/touristspots/chembra.jpg"
-                      style={{ height: "50vh", objectFit: "cover" }}
+                      src="https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=600"
+                      style={{ height: "auto", objectFit: "cover" }}
                     />
                   </Container>
                 </Carousel.Item>
                 <Carousel.Item>
                   <Container className="text-center homeimagecontainer">
                     <Image
-                      src="../images/touristspots/9000.jpg"
+                      src="https://images.pexels.com/photos/18547037/pexels-photo-18547037/free-photo-of-man-driving-hindustan-ambassador-as-taxi.jpeg?auto=compress&cs=tinysrgb&w=600"
                       style={{ height: "50vh", objectFit: "cover" }}
                     />
                   </Container>
@@ -49,15 +74,121 @@ const Cabdetailscreen = () => {
                 <Carousel.Item>
                   <Container className="text-center homeimagecontainer">
                     <Image
-                      src="../images/touristspots/caves.jpg"
+                      src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=600"
                       style={{ height: "50vh", objectFit: "cover" }}
                     />
                   </Container>
                 </Carousel.Item>
               </Carousel>
             </Col>
+            {isContactLoading ? (
+              <Loading />
+            ) : contact ? (
+              <Col className="my-3" sm={12} md={12} lg={3} xl={3}>
+                <h4 className="text-center">Contact Details </h4>
+                <ListGroup variant="">
+                  <ListGroup.Item className="d-flex justify-content-between align-items-center">
+                    <FaPhoneSquare size="1.5rem" color="green" />
+                    {contact.number}
+                  </ListGroup.Item>
+                  <ListGroup.Item className="d-flex justify-content-between align-items-center">
+                    <BiLogoWhatsapp size="1.5rem" color="green" />
+                    {contact.number}
+                  </ListGroup.Item>
+                  <ListGroup.Item className="d-flex justify-content-between align-items-center">
+                    <BiLogoGmail size="1.5rem" color="red" />
+                    midhunjoy963@gmail.com
+                  </ListGroup.Item>
+                </ListGroup>
+              </Col>
+            ) : (
+              <Col sm={12} md={3} lg={3} xl={3}>
+                <h3>No Contacts Found</h3>
+              </Col>
+            )}
+            <Col className="my-3" sm={12} md={12} lg={3} xl={3}>
+              <h4 className="text-center">More Info</h4>
+              <ListGroup>
+                <ListGroup.Item>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span>Seating Capacity</span>
+                    <span className="text-end">5</span>
+                  </div>
+                </ListGroup.Item>
+
+                <ListGroup.Item>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span>AC</span>
+                    <span className="text-end">Available</span>
+                  </div>
+                </ListGroup.Item>
+
+                <ListGroup.Item>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span>Audio System</span>
+                    <span className="text-end">Blootooth </span>
+                  </div>
+                </ListGroup.Item>
+
+                <ListGroup.Item >
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span>Luggage Capacity</span>
+                    <span className="text-end">2 large suitcases </span>
+                  </div>
+                </ListGroup.Item>
+              </ListGroup>
+            </Col>
           </Row>
-        </>
+
+          <Container className="my-3">
+            <Row className="my-3">
+              <Col
+                as="div"
+                className="d-flex justify-content-between align-items-center"
+                xxl={6}
+                xl={6}
+              >
+                <h3 style={{ display: "inline" }}>Reviews</h3>
+                <Button
+                  className="text-end"
+                  size="sm"
+                  style={{ backgroundColor: "#68b072", border: "none" }}
+                  onClick={() => {
+
+                    setShowAddReview(true);
+                  }}
+                  disabled={showAddReview}
+                >
+                  {" "}
+                  <BsFillPencilFill /> Write Review
+                </Button>
+              </Col>
+            </Row>
+            {cab.reviews.length?(<div>
+            <Row>
+              <Rating numreviews={cab.noOfReviews} rating={cab.rating}></Rating>
+            </Row>
+            <Row className="my-3">
+              <ReviewDetails reviews={cab.reviews}></ReviewDetails>
+            </Row>
+            </div>):(<><p>You are the first one to review...</p></>)}
+          </Container>
+          <Modal
+            show={showAddReview}
+            centered
+            onHide={() => {
+              setShowAddReview(false);
+            }}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>How was the experience.? </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <ReviewForm cabId={cabId} setShowAddReview ={closeModel}></ReviewForm>
+            </Modal.Body>
+
+          </Modal>
+        </Container>
       )}
     </>
   );

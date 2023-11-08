@@ -1,4 +1,5 @@
 import asyncHandler from "../custommiddlewares/asyncHandler.js";
+import mongoose from "mongoose";
 import userModel from "../models/usermodel.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -31,7 +32,6 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("Invalid Credentials");
   }
-  res.send("logging in");
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
@@ -40,7 +40,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     expires: new Date(0),
   });
-  res.status(200).json({ message: "Logged out successfully" });
+  return res.status(200).json({ message: "Logged out successfully" });
 });
 
 const createNewUser = asyncHandler(async (req, res) => {
@@ -82,4 +82,17 @@ const createNewUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { loginUser, logoutUser, createNewUser };
+const getUsersByIds = asyncHandler(async (req, res) => {
+  console.log("request came for users...");
+  const users = await userModel
+    .find({
+      _id: { $in: req.body.map((id) => new mongoose.Types.ObjectId(id)) },
+    })
+    .select("name");
+  if(users){
+    return res.status(201).json(users);
+  }
+  throw new Error("No Users found");
+  
+});
+export { loginUser, logoutUser, createNewUser, getUsersByIds };

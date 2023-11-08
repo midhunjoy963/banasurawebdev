@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import FormContainer from "../components/formContainer";
-import Loading from "../components/loading";
+import FormContainer from "../components/formContainer.jsx";
+import Loading from "../components/loading.jsx";
 import { useLoginMutation } from "../slices/userApiSlice.js";
 import { toast } from "react-toastify";
 import { setCredentials } from "../slices/authSlice";
@@ -33,22 +33,27 @@ const LoginScreen = () => {
 
   const [login, { isLoading }] = useLoginMutation();
   const { userInfo } = useSelector((state) => state.auth);
-  const { search } = useLocation();
-  const sp = new URLSearchParams(search);
-  const redirect = sp.get("redirect") || "/";
+  const { state } = useLocation();
+  
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      if(state?.redirectTo)
+      navigate(state.redirectTo);
     }
-  }, [userInfo, redirect, navigate]);
+  }, [userInfo, state, navigate]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
-      navigate(redirect);
+      if(state?.redirectTo){
+        navigate(state.redirectTo);
+      }
+      else{
+        navigate('/');
+      }
       toast("Logged In Successfully", {
         position: "top-right",
         autoClose: 1000,

@@ -28,6 +28,7 @@ const users = [
     name: "Sureka",
     email: "sureka@gmail.com",
     password: becript.hashSync("sureka26", 10),
+    phoneNumber: 6876286754,
   },
 ];
 
@@ -66,8 +67,12 @@ const importData = async () => {
     const newUser = await userModel.insertMany(users);
     const admin = newUser[0]._id;
 
+    const contact = await userModel.find({
+      email: "sureka@gmail.com",
+    });
+
     const samblecabs = cabs.map((cab) => {
-      return { user: admin, ...cab };
+      return { contact: contact, user: admin, ...cab };
     });
     const newcabs = await cabModel.insertMany(samblecabs);
     console.log(JSON.stringify(newcabs));

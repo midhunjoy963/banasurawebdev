@@ -6,10 +6,13 @@ const baseQuery = fetchBaseQuery({baseUrl:BASE_URL});
 export const apiSlice = createApi({
     baseQuery,
     mode:'cors',
-    tagTypes:['cab','user'],
+    tagTypes:['Cab','User'],
     endpoints:(builder)=>({}),
 
 });
+
+
+
 
 
 

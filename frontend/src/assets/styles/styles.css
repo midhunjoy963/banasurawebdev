@@ -1,4 +1,6 @@
-
+::-webkit-scrollbar {
+  width: 0;
+}
 .rating svg{
   color:#f8e825;
 }

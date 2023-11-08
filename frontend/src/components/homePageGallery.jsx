@@ -2,7 +2,7 @@ import React from 'react';
 import { Carousel,Image,Container } from 'react-bootstrap';
 import '../assets/styles/styles.css';
 
-const homepagegallery = () => {
+const HomePageGallery = () => {
   return (
     
     <Carousel fade >
@@ -53,4 +53,4 @@ const homepagegallery = () => {
   )
 }
 
-export default homepagegallery
+export default HomePageGallery

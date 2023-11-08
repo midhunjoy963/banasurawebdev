@@ -1,52 +1,22 @@
 import asyncHandler from '../custommiddlewares/asyncHandler.js';
 import cabModel from '../models/cabmodel.js';
+import userModel from '../models/usermodel.js';
 
-const cabs = [  
-    {
-    
-        name:'Ferrary',
-        image:'images/cabs/ferrari.jpg',    
-        rating:3,
-        noOfReviews:6,
-        discription:'This is my all new ferrary',
-        chargePerKm:100
-    },
-    {
-    
-        name:'Ambaseder', 
-        image:'images/cabs/ambassader.jpg',   
-        rating:4.6,
-        noOfReviews:6,
-        discription:'This is my all old gold',
-        chargePerKm:350
-    },
-    {
-    
-        name:'Maruthi 800', 
-        image:'images/cabs/800.jpg', 
-        rating:3.5,
-        noOfReviews:10,
-        discription:'This not just old its the new',
-        chargePerKm:200
-    },
-    
-];
+
 
 //@desc fetch all cabs
 //@route GET/api/cabs
 //@access Public
 const getCabs = asyncHandler(async (req,res)=>{
-    if(process.env.DEV_USER==='midhun'){
-        const cabs = await cabModel.find();
-        if(cabs){
-            res.json(cabs);
-        }
-
+    const cabs = await cabModel.find();
+    if(cabs){
+        res.json(cabs);
     }
     else{
-        res.json(cabs);
-    
-    }  
+        res.json({message:'No cabs Found'});
+    }
+
+     
     
 });
 
@@ -56,7 +26,7 @@ const getCabs = asyncHandler(async (req,res)=>{
 const getCabById = asyncHandler(async (req,res)=>{
     const cab = await cabModel.findById(req.params.id);
     if(cab){
-        res.json(cab);
+        return res.json(cab);
     }
     res.status(404).send({message:'Product not found'});
 });
@@ -83,21 +53,127 @@ const createCab = asyncHandler(async (req,res)=>{
 //@route PUT /api/cabs/:id
 //@access private/adimin
 const updateCab = asyncHandler(async (req,res)=>{
-    const {name,description} = req.body;
-
+    console.log('update request came to server....');
+    console.log('id: ',req.params.id)
+    const {name,discription,image} = req.body;
+    console.log('body',req.body);
     const cab = await cabModel.findById(req.params.id);
     if(cab){
         cab.name = name;
-        cab.description = description;
-        const updatedCab = await cabModel.save();
-        res.json(updatedCab);
+        cab.discription = discription;
+        cab.image = image;
+
+        const updatedCab = await cab.save();
+        console.log('udpadated cab',updatedCab);
+        res.status(201).json(updatedCab);
     }
     else{
-        res.status(404);
         throw new Error('Cab not Found');
     }
     
 });
 
+//@desc delete a cab
+//@route DELETE /api/cabs/:id
+//@access private/adimin
+const deleteCab = asyncHandler(async (req,res)=>{
+    try{
+        await cabModel.deleteOne({ _id : req.params.id });
+        res.status(200).json({message:'OK deleted'});
+    }
+    catch(err){
+        res.status(404).json({message:'resourse not found'});
+    }
+    
+    
+});
+// const reviewSchema = new mongoose.Schema(
+//     {
+//       user: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         required: true,
+//         ref: "User",
+//       },
+//       name: {
+//         type: String,
+//         required: true,
+//       },
+//       rating: {
+//         type: Number,
+//         required: true,
+//       },
+//       comment: {
+//         type: String,
+//         required: true,
+//       },
+//     },
+//     {
+//       timestamps: true,
+//     }
+//   );
 
-export {getCabs,getCabById,createCab,updateCab};
+//@desc create a review
+//@route POST /api/cabs
+//@access private/adimin
+const createReview = asyncHandler(async (req,res)=>{
+    console.log('create review request came...')
+    const {comment,rating} = req.body;
+    const cab = await cabModel.findById(req.params.id);
+    if(cab){
+        const alreadyReviewd = cab.reviews.find(
+            (review) => review.user.toString() === req.user._id.toString()
+        );
+        // if(alreadyReviewd){
+        //     res.status(400).json({message:'You have already reviewd'});
+        //     throw new Error('Already reviewed');
+        //     return;
+        // }
+        const review = {
+            name : req.user.name,
+            rating:Number(rating),
+            comment:comment,
+            user:req.user._id,
+        };
+        cab.reviews.push(review);
+        cab.noOfReviews = cab.reviews.length;
+        cab.rating = cab.reviews.reduce((acc,review) => acc+review.rating,0)/cab.noOfReviews;
+        const updatedCab = await cab.save();
+        return res.status(201).json({message:'Review Added ..',...updatedCab});
+    }
+    else{
+        res.status(404);
+        throw new Error('Cab not Found');
+    }
+});
+
+const getContact = asyncHandler(async (req,res) =>{
+    console.log('request came for contact...',req.params.id);
+    const cab = await cabModel.findById(req.params.id);
+    const contact = await userModel.findById(cab.contact).select('-password');
+    if(cab && !contact){
+        console.log('cab found not contact....');
+        return res.status(201).json({number:'123456789'});
+    }
+    if(contact){
+        console.log('contact found...');
+        return res.status(201).send(contact);
+    }
+    else{
+        console.log('cab and contact both not found');
+        res.status(404);
+        throw new Error('Contact Details not Found');
+    }
+
+}
+
+);
+
+export {
+    getCabs,
+    getCabById,
+    createCab,
+    updateCab,
+    deleteCab,
+    createReview,
+    getContact
+};

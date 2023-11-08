@@ -2,17 +2,16 @@ import { Nav, Navbar, Container, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 import Image from "react-bootstrap/Image";
-import FloatingCabIcon from "./floatingCabsLink.jsx";
 import LoginedUserInfo from "./loggedInUserInfo.jsx";
 
 const Header = () => {
   return (
     <header>
-      <Navbar expand="lg" style={{ backgroundColor: "#68b072" }}>
+      <Navbar fixed="top" expand="lg" style={{ backgroundColor: "#68b072" }}>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <Image src="../logo.png" style={{ height: "70px" }} />
+              <Image src="../logo.png" style={{ height: "40px" }} />
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -20,7 +19,7 @@ const Header = () => {
             id="basic-navbar-nav"
             className="justify-content-end"
           >
-            <Nav>
+            <Nav className="me-auto">
               <LinkContainer to="/cabs">
                 <Nav.Link>Cabs</Nav.Link>
               </LinkContainer>

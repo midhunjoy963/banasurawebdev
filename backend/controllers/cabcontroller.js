@@ -135,9 +135,9 @@ const createReview = asyncHandler(async (req,res)=>{
             user:req.user._id,
         };
         cab.reviews.push(review);
-        cab.numberOfReviews = cab.reviews.length;
-        cab.rating = cab.reviews.reduce((acc,review) => acc+review.rating,0)/cab.numberOfReviews;
-        const updatedCab = await cab.save()
+        cab.noOfReviews = cab.reviews.length;
+        cab.rating = cab.reviews.reduce((acc,review) => acc+review.rating,0)/cab.noOfReviews;
+        const updatedCab = await cab.save();
         return res.status(201).json({message:'Review Added ..',...updatedCab});
     }
     else{

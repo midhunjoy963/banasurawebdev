@@ -5,22 +5,16 @@ import { useGetCabsQuery } from '../slices/cabApiSlice.js';
 import Cab from '../components/cab.jsx';
 
 
-import { useSpring, animated } from 'react-spring'
+import {  animated } from 'react-spring'
 
 
 
 
 const HomeScreen2 = () => {
   const { data: cabs, isLoading, error } = useGetCabsQuery({});
-  // const style = useSpring({
-  //   from: {
-  //     transform: "rotateY(0deg)"
-  //   },
-  //   transform: "rotateY(25deg)"
-  // });
+  
   return (
     <>
-    {/* <HomePageGallery></HomePageGallery> */}
     <Container  style={
       { 
       backgroundImage: 'url("../images/touristspots/dam.jpg")', 
@@ -51,17 +45,17 @@ const HomeScreen2 = () => {
           >
           
               {cabs?.map((cab) => (
-                <animated.div style={{
+                <div style={{
                   flexShrink: 0,
                   width: '300px',
                   borderRadius: '10px',
                   marginLeft: '5px',
                   backgroundSize: 'cover',
                   backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center center'//,...style
+                  backgroundPosition: 'center center'
                 }}>
                   <Cab key={cab.id} cab={cab} style={{ flex: '0 0 300px' }} />
-                </animated.div>
+                </div>
               ))}
               
           </div>

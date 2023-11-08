@@ -123,11 +123,11 @@ const createReview = asyncHandler(async (req,res)=>{
         const alreadyReviewd = cab.reviews.find(
             (review) => review.user.toString() === req.user._id.toString()
         );
-        if(alreadyReviewd){
-            res.status(400).json({message:'You have already reviewd'});
-            throw new Error('Already reviewed');
-            return;
-        }
+        // if(alreadyReviewd){
+        //     res.status(400).json({message:'You have already reviewd'});
+        //     throw new Error('Already reviewed');
+        //     return;
+        // }
         const review = {
             name : req.user.name,
             rating:Number(rating),

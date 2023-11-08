@@ -9,9 +9,10 @@ import {
 
 const router = express.Router();
 
-router.route("/:userIds").post(getUsersByIds);
+
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/signup", createNewUser);
+router.route("/:userIds").post(getUsersByIds);
 
 export default router;

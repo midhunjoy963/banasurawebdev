@@ -124,8 +124,9 @@ const createReview = asyncHandler(async (req,res)=>{
             (review) => review.user.toString() === req.user._id.toString()
         );
         if(alreadyReviewd){
-            res.status(400)
+            res.status(400).json({message:'You have already reviewd'});
             throw new Error('Already reviewed');
+            return;
         }
         const review = {
             name : req.user.name,
@@ -136,8 +137,8 @@ const createReview = asyncHandler(async (req,res)=>{
         cab.reviews.push(review);
         cab.numberOfReviews = cab.reviews.length;
         cab.rating = cab.reviews.reduce((acc,review) => acc+review.rating,0)/cab.numberOfReviews;
-        await cab.save()
-        res.status(201).json({message:'Review Added ..'});
+        const updatedCab = await cab.save()
+        return res.status(201).json({message:'Review Added ..',...updatedCab});
     }
     else{
         res.status(404);
@@ -148,15 +149,17 @@ const createReview = asyncHandler(async (req,res)=>{
 const getContact = asyncHandler(async (req,res) =>{
     console.log('request came for contact...',req.params.id);
     const cab = await cabModel.findById(req.params.id);
-    console.log(cab);
     const contact = await userModel.findById(cab.contact).select('-password');
     if(cab && !contact){
-        res.status(201).json({number:'123456789'});
+        console.log('cab found not contact....');
+        return res.status(201).json({number:'123456789'});
     }
     if(contact){
-        res.status(201).send(contact);
+        console.log('contact found...');
+        return res.status(201).send(contact);
     }
     else{
+        console.log('cab and contact both not found');
         res.status(404);
         throw new Error('Contact Details not Found');
     }

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate,useLocation } from "react-router-dom";
 import RatingSelector from "../components/ratingSelector.jsx";
 import { useCreateReviewMutation } from "../slices/cabApiSlice.js";
+import { toast } from "react-toastify";
 
 const ReviewForm = ({ cabId }) => {
   const { userInfo } =  useSelector((state) => state.auth);
@@ -21,7 +22,22 @@ const ReviewForm = ({ cabId }) => {
   const [addReview, { isAddingReview }] = useCreateReviewMutation();
   const submitHandler = async (e) => {
     e.preventDefault();
-    const cab = await addReview({ cabId:cabId,rating: rating, comment: comment }).unwrap();
+    try{
+        const cab = await addReview({ cabId:cabId,rating: rating, comment: comment }).unwrap();
+        console.log('cab with review...',cab);
+    }
+    catch(e){
+        toast.error(e?.data?.message||e?.error, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+    }
+    
 
   };
 
@@ -44,7 +60,7 @@ const ReviewForm = ({ cabId }) => {
           onChange={(e) => setComments(e.target.value)}
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" style={{ backgroundColor: "#68b072", border: "none" }}>
         Submit
       </Button>
     </Form>

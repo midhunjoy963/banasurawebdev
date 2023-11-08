@@ -52,7 +52,7 @@ const HomeScreen2 = () => {
                   marginLeft: '5px',
                   backgroundSize: 'cover',
                   backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center center'git 
+                  backgroundPosition: 'center center'
                 }}>
                   <Cab key={cab.id} cab={cab} style={{ flex: '0 0 300px' }} />
                 </div>

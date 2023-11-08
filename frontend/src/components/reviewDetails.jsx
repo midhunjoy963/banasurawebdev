@@ -5,8 +5,6 @@ import Rating from "./rating";
 
 const ReviewDetails = ({ reviews }) => {
   let userIds = reviews.map((rev) => rev.user);
-  userIds.push(reviews[0].user);
-  console.log(userIds);
   const { data: users, isLoading: isUsersLoading } =
     useGetUsersByIdsQuery(userIds);
   console.log("users", users);

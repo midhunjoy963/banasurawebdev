@@ -26,6 +26,9 @@ import ReviewForm from "../components/reviewForm.jsx";
 const Cabdetailscreen = () => {
   const { id: cabId } = useParams();
   const { data: cab, isLoading,refetch } = useGetCabDetailQuery(cabId);
+  if(cab){
+  console.log('reviews......',cab.reviews);
+  }
   const { data: contact, isLoading: isContactLoading } =
     useGetContactDetailsQuery(cabId);
   const [showAddReview, setShowAddReview] = useState(false);
@@ -161,13 +164,14 @@ const Cabdetailscreen = () => {
                 </Button>
               </Col>
             </Row>
-
+            {cab.reviews.length?(<div>
             <Row>
               <Rating numreviews={cab.noOfReviews} rating={cab.rating}></Rating>
             </Row>
             <Row className="my-3">
               <ReviewDetails reviews={cab.reviews}></ReviewDetails>
             </Row>
+            </div>):(<><p>You are the first one to review...</p></>)}
           </Container>
           <Modal
             show={showAddReview}

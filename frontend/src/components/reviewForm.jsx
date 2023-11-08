@@ -6,7 +6,7 @@ import RatingSelector from "../components/ratingSelector.jsx";
 import { useCreateReviewMutation } from "../slices/cabApiSlice.js";
 import { toast } from "react-toastify";
 
-const ReviewForm = ({ cabId }) => {
+const ReviewForm = ({ cabId ,setShowAddReview}) => {
   const { userInfo } =  useSelector((state) => state.auth);
   const {pathname } = useLocation();
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ const ReviewForm = ({ cabId }) => {
     try{
         const cab = await addReview({ cabId:cabId,rating: rating, comment: comment }).unwrap();
         console.log('cab with review...',cab);
+        setShowAddReview(false);
     }
     catch(e){
         toast.error(e?.data?.message||e?.error, {
@@ -36,6 +37,7 @@ const ReviewForm = ({ cabId }) => {
             progress: undefined,
             theme: "light",
           });
+          setShowAddReview(false);
     }
     
 

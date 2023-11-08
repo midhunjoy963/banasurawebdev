@@ -19,7 +19,7 @@ const rating = ({rating,numreviews}) => {
     <span>
       {rating>=5?<FaStar />:rating>=4.5?<FaStarHalfAlt />:<FaRegStar />}
     </span>
-    <span className='rating-text'>{`${numreviews} Reviews`}</span>
+    {numreviews&&<span className='rating-text'>{`${numreviews} Reviews`}</span>}
    </div>
   )
 }

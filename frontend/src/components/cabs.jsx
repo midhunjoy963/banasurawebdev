@@ -19,7 +19,7 @@ const Cabs = () => {
       ) : (
         <>
           <Row className="my-3">
-            {cabs.map((cab, i) => (
+            {cabs.map((cab) => (
               <Col className="my-3" key={cab._id} sm={12} md={6} lg={4} xl={3}>
                 <Cab cab={cab}></Cab>
               </Col>

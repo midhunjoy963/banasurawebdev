@@ -16,14 +16,15 @@ export const cabApiSlice = apiSlice.injectEndpoints({
             query: (cabId)=>({
                 url:`${CAB_URL}/${cabId}`,
             }),
-            keepUnUsedDataFor:5
+            keepUnUsedDataFor:5,
+            providesTags:['Cab']
         }),
         createCab:builder.mutation({
             query:()=>({
                 url:CAB_URL,
                 method:'POST'
             }),
-            invalidatesTags:['cab'],
+            
         }),
         updateCab:builder.mutation({
             query:(data)=>({
@@ -38,7 +39,7 @@ export const cabApiSlice = apiSlice.injectEndpoints({
                 url:`${CAB_URL}/${cabId}`,
                 method:'DELETE',
             }),
-            invalidatesTags:['cab']
+            invalidatesTags:['Cabs']
         }),
         uploadCabImage:builder.mutation({
             query:(data)=>({
@@ -53,7 +54,7 @@ export const cabApiSlice = apiSlice.injectEndpoints({
                 method:'POST',
                 body:data,
             }),
-            invalidatesTags:['Cab'],
+            invalidatesTags:['Cabs'],
         }),
         getContactDetails:builder.query({
             query:(cabId) => ({

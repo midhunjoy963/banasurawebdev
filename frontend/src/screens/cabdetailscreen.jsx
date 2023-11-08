@@ -25,10 +25,16 @@ import ReviewForm from "../components/reviewForm.jsx";
 
 const Cabdetailscreen = () => {
   const { id: cabId } = useParams();
-  const { data: cab, isLoading } = useGetCabDetailQuery(cabId);
+  const { data: cab, isLoading,refetch } = useGetCabDetailQuery(cabId);
   const { data: contact, isLoading: isContactLoading } =
     useGetContactDetailsQuery(cabId);
   const [showAddReview, setShowAddReview] = useState(false);
+  const closeModel =()=>{
+    console.log('closing modell....');
+    refetch();
+    setShowAddReview(false);
+    console.log('cab after review...',cab);
+  }
 
   return (
     <>
@@ -44,13 +50,13 @@ const Cabdetailscreen = () => {
           </Row>
 
           <Row className="my-3">
-            <Col key={cab._id} sm={12} md={6} lg={6} xl={6}>
+            <Col key={cab._id} sm={12} md={12} lg={6} xl={6}>
               <Carousel fade>
                 <Carousel.Item>
                   <Container className="text-center homeimagecontainer">
                     <Image
                       src="https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=600"
-                      style={{ height: "50vh", objectFit: "cover" }}
+                      style={{ height: "auto", objectFit: "cover" }}
                     />
                   </Container>
                 </Carousel.Item>
@@ -75,7 +81,7 @@ const Cabdetailscreen = () => {
             {isContactLoading ? (
               <Loading />
             ) : contact ? (
-              <Col className="my-3" sm={12} md={3} lg={3} xl={3}>
+              <Col className="my-3" sm={12} md={12} lg={3} xl={3}>
                 <h4 className="text-center">Contact Details </h4>
                 <ListGroup variant="">
                   <ListGroup.Item className="d-flex justify-content-between align-items-center">
@@ -97,7 +103,7 @@ const Cabdetailscreen = () => {
                 <h3>No Contacts Found</h3>
               </Col>
             )}
-            <Col className="my-3" sm={12} md={3} lg={3} xl={3}>
+            <Col className="my-3" sm={12} md={12} lg={3} xl={3}>
               <h4 className="text-center">More Info</h4>
               <ListGroup>
                 <ListGroup.Item>
@@ -121,7 +127,7 @@ const Cabdetailscreen = () => {
                   </div>
                 </ListGroup.Item>
 
-                <ListGroup.Item>
+                <ListGroup.Item >
                   <div className="d-flex justify-content-between align-items-center">
                     <span>Luggage Capacity</span>
                     <span className="text-end">2 large suitcases </span>
@@ -145,7 +151,7 @@ const Cabdetailscreen = () => {
                   size="sm"
                   style={{ backgroundColor: "#68b072", border: "none" }}
                   onClick={() => {
-                    
+
                     setShowAddReview(true);
                   }}
                   disabled={showAddReview}
@@ -174,7 +180,7 @@ const Cabdetailscreen = () => {
               <Modal.Title>How was the experience.? </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <ReviewForm cabId={cabId} ></ReviewForm>
+              <ReviewForm cabId={cabId} setShowAddReview ={closeModel}></ReviewForm>
             </Modal.Body>
 
           </Modal>
